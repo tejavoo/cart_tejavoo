@@ -1,0 +1,366 @@
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" href="print/img/favicon2.png" type="image/png">
+    <script>
+      function downLoad(){
+        if (document.all){
+            document.all["layer1"].style.display="none";
+            document.all["layer2"].style.visibility="visible";
+        } else if (document.getElementById){
+            node = document.getElementById("layer1").style.display='none';
+            node = document.getElementById("layer2").style.visibility='visible';
+        }
+      }
+    </script>
+
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+ 
+</head>
+<body ng-app="putApp" ng-controller="putCtrl" ng-cloak onload="downLoad()">
+
+<div id="layer1" class="layer1_class">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+<div id="layer2" class="layer2_class">
+<div ng-controller="HeaderCtrl">
+  <md-toolbar>
+      <div class="md-toolbar-tools md-toolbar-tools2">
+        
+        <div class="pg-page-head">
+         <span style="font-weight:bold"><a>PutGrub</a>  </span>|<span >  <a href="print/mainApp.html?rel=aacf59ec0f#">PutPrint</a></span>
+        </div>
+        <div class="cartdiv" ng-click="toggleRight()"
+            ng-hide="isOpenRight()"><img src="cart.svg" class="cart"></div>
+      </div>
+    </md-toolbar>
+    <!-- <md-content layout="row" flex> 
+        <div layout="column">-->
+       <md-sidenav class="md-sidenav-right md-whiteframe-z2" style="zoom:1.2;" md-component-id="right">
+      <md-content ng-controller="RightCtrl" layout-padding>
+ <div ng-show="state==1"> 
+      <h1>List Items here</h1>
+ </div>
+ <div ng-show="state==2">
+  <!-- Login state -->
+  <h1>Login</h1>
+      <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="login">
+        <md-content class="md-padding">
+
+          <section ng-controller="loginCtrl">
+          <div ng-show="invalidCredentials"  class="alert alert-danger fade in inRed">
+           
+            {{inValidMessage}}</a>
+          </div>
+          <div ng-show="networkError"  class="alert alert-danger fade in inRed">
+            
+            Please check your Internet connection.</a>
+          </div>
+    <form id="loginForm"  name="loginForm" noValidate>
+      <div  ng-class="{ 'has-error' : loginForm.email.$invalid && loginSubmit }">
+            <md-input-container>
+              <label>Email</label>
+              <input ng-model="email" ng-keypress="loginOnEnter($event)"  name="email" required>
+          <p ng-show="loginForm.email.$invalid && loginSubmit" class="help-block inRed">Enter a valid email</p>
+            </md-input-container>
+
+
+      </div>
+      <div  ng-class="{ 'has-error' : loginForm.password.$invalid &&  loginSubmit }">
+            <md-input-container>
+                  <label>Password</label>
+                  <input ng-model="password"  type="password" ng-keypress="loginOnEnter($event)" name="password" ng-minlength="3" required>
+                  <p ng-show="loginForm.password.$invalid &&  loginSubmit" class="help-block inRed">Password is too short.</p>
+                </md-input-container>
+    
+      </div>
+   
+         <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>       
+          <a class="forgotPass" href="#forgotPassword">Forgot Password?</a>
+        </form>
+ </section>
+        </md-content>
+      </md-tab>
+      <md-tab label="signup">
+        <md-content class="md-padding">
+ 
+ <section ng-controller="registerCtrl">
+
+      <div ng-show="emailExists"  class="alert alert-danger fade in inRed">
+        
+        {{registerMsg}}
+      </div>
+      <div ng-show="networkError"  class="alert alert-danger fade in inRed">
+       
+        Please check your Internet connection.</a>
+      </div>
+        <form id="registerForm"   name="registerForm"  novalidate>
+
+          <div ng-class="{ 'has-error' : registerForm.name.$invalid && registerSubmit }">
+           
+            <md-input-container>
+                  <label>Name</label>
+                  <input ng-model="fullName"  ng-keypress="registerOnEnter($event)" name="name" required>
+                  <p ng-show="registerForm.name.$invalid && registerSubmit " class="help-block inRed">Your Full name is required</p>
+                </md-input-container>
+            
+          </div>
+
+          <div ng-class="{ 'has-error' : registerForm.email.$invalid && registerSubmit }">
+            <md-input-container>
+                  <label>Email</label>
+                  <input ng-model="email"  ng-keypress="registerOnEnter($event)" name="email" required>
+                  <p ng-show="registerForm.email.$invalid && registerSubmit " class="help-block inRed">Enter a valid email</p>
+                </md-input-container>
+              
+          </div>
+    
+          <div ng-class="{ 'has-error' : registerForm.password.$invalid && registerSubmit }">
+            <md-input-container>
+                  <label>Password</label>
+                  <input ng-model="password" type="password" ng-keypress="registerOnEnter($event)" name="password" ng-minlength="3" required>
+                  <p ng-show="registerForm.password.$invalid && registerSubmit" class="help-block inRed">Password is too short.</p>
+                </md-input-container>
+              
+          </div>
+
+          <md-button class="md-primary md-raised" ng-click="register()">Signup</md-button>
+
+        </form>
+      </section>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+ </div>
+ <div ng-show="state==3">
+  <!-- Address state -->
+   <h1>Address</h1>
+           <md-input-container>
+                  <label>Name</label>
+                  <input ng-model="fullName" name="name" required>
+                  <p ng-show="addressForm.name.$invalid && registerSubmit " class="help-block inRed">Your Name is required</p>
+                </md-input-container>
+            <md-input-container>
+              <label>Delivery Drop point</label>
+              <md-select ng-model="printer">
+                <md-option ng-repeat="drop in fooddrops track by  $index" value="{{drop.pk}}">
+                  {{ drop.fields.name }}
+                </md-option>
+              </md-select>
+            </md-input-container>
+             <md-input-container>
+                  <label>Delivery Address</label>
+                  <textarea ng-model="address"  name="address" required></textarea> 
+                  <p ng-show="addressForm.address.$invalid && registerSubmit " class="help-block inRed">Address is required</p>
+              </md-input-container>
+              <md-input-container>
+                  <label>Phone Number</label>
+                  <input ng-model="phonenumber"   name="phonenumber" required>
+                  <p ng-show="registerForm.phonenumber.$invalid && registerSubmit " class="help-block inRed">Your Full name is required</p>
+                </md-input-container> 
+            <div class="pp-well wellForm"><span class="wellHeading">Total cost</span><span class="floatRight"><img class="rupeeIcon" src="print/img/rupee.svg"><span class="orderCost ng-binding">80</span></span></div>
+            <h3 class="ng-binding">Balance in wallet : {{balance}} INR</h3>
+ 
+ </div>
+ <div ng-show="state==4">
+  <!-- Payment  state -->
+ 
+  <div id="walletPage">
+<h2>Recharge Wallet</h2><hr>
+<h3>Available balance in wallet : Rs.<span class="balAfter">{{walletBalance}}</span></h3>
+  <section class="contSection">
+    <div class="">
+            <div class="do-payment-header ng-binding"></div>
+              <form id="wallet" method="post" class="ng-pristine ng-valid">
+                <div class="" style="margin-bottom:10px;">
+                  <div class="">
+                      <md-input-container>
+                        <label>Amount in Rupees</label>
+                        <input  ng-model="amount" id="amountVal" ng-change="checkAmount()">
+                      </md-input-container>
+                  
+                      <span class="help-block inRed" ng-show="paymentErr">Minimum of Rs.{{cost-walletBalance}} needs to be paid</span>
+                      <span class="help-block" ng-show="payReq">Please enter an amount to pay</span>
+                  </div>
+                </div>
+                 <div layout="row">
+                  <div flex="33">
+                    <md-button class="md-raised" ng-click="setAmount(50)">Rs. 50</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(100)">Rs. 100</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(200)">Rs. 200</md-button>
+                  </div>
+                </div>
+           
+              </form>
+          </div>
+          
+</section>
+</div>
+ </div>
+  <div ng-show="state==5">
+  <!-- Order Success state -->
+  <h1>Order Successful</h1>
+  
+ </div>
+
+     <div ng-hide="state==2||state==5">
+        <div layout="row">
+          <div flex="50">
+            <md-button class="md-raised stdBtn" ng-click="prevPage()" ng-hide="state==1"><span  id="editIcon" class="glyphicon glyphicon-pencil iconBtn"></span>Review</md-button>
+          </div>
+          <div flex="50">
+<md-button class="md-raised md-primary  floatRight stdBtn" id="rgtBtn" ng-click="nextPage()"  ><span ng-show="pageState==1" id="printIcon" class="glyphicon glyphicon-print iconBtn"></span>{{navRight}}   </md-button>
+
+<button type="button" id="rgtLoading" ng-show="pageState==3" class="btn floatRight deepOrangeBtn ng-binding stdBtn"><div  id="printSpinner" class="spinner btnSpinner">
+                <div class="double-bounce1 whiteBack btnBounce"></div>
+                <div class="double-bounce2 whiteBack btnBounce"></div>
+              </div></button>
+          </div>
+        </div>
+    </div>
+
+
+
+    </md-content></md-sidenav>
+<!-- #13<div> -->
+  </div>
+
+ <div class="putdes" hide-xs>
+  <img src="./logo.png" class="imgg">
+  <br><br><!--hr class="hrhr"-->
+  <div class="mdes">
+Hello! 
+<br>
+Grubbing is an art. <br>
+Art is constantly reinventing itself.<br>
+Why shouldn't we?<br>
+<br>
+Bringing to you<br>
+the food lover's dream<br>
+PutGrub is going mainstream<br>
+<br>
+With a menu<br>
+made in collaboration<br>
+with the Chefs and You,<br>
+you decide, they make, <br>
+each week, there will be a new taste <br>
+<br>
+Salvation at Himalayas,<br>
+salivation too <br>
+PutGrub is on floor 2! <br>
+<br>
+<strong>8 pm to 1 am</strong>,<br> 
+when hunger obstructs your ease<br>
+with our food weaponry,<br> you can put peace.<br><br>
+  </div></div>
+
+
+<div class="ul" flex="20"  hide-xs></div>
+
+
+<div layout="row">
+  <span flex="20" hide-xs></span>
+  <div class="cardcontainer" flex layout="column" layout-align="center">
+    <div style="height:70px;"></div>
+
+
+    <div class="card">
+      <md-card>
+        <div layout="column">
+          <div class="loremtext md-padding" flex="50">
+              <div class="cardtitle">PutGrub!</div>
+              <hr>
+                <div class="description" style="text-align:center;">
+                  <div layout="row" layout-align="center center" style="margin-top:20px;;margin-bottom:4px">
+                      <div>
+                        <img src="./pin.svg" style="max-height:25px;width:25px;display:inline-block;vertical-align:middle"> Himalaya 2<sup>nd</sup> floor
+                      </div>
+                      <div style="width:15px;max-height:25px;display:inline-block"></div>
+                      <div>
+                        <img src="./clock.svg" style="max-height:25px;width:25px;display:inline-block;vertical-align:middle"> 8 pm - 1 am
+                      </div>
+                  </div>
+                </div>
+          </div>
+          <div flex>
+            <!--img src="http://ow.ly/10uHWz"-->
+          </div>
+        </div>
+      </md-card>
+    </div>
+
+
+
+    <div class="card" flex ng-repeat="item in putData">
+
+      <md-card>
+
+        <div layout="row">
+
+          <div class="loremtext md-padding" flex="30" layout="column" layout-align="space-between stretch">
+
+            <div>
+              <div class="cardtitle">{{item.fields.name}}</div>
+              <hr>
+                <div class="description">
+                  {{item.fields.description}}
+                </div>
+                  
+                  
+            </div>
+            <span flex></span>
+            <!--div class="cost">Rs {{item.fields.cost}}</div-->
+            <md-button class="md-primary md-raised orderbtn">Order Now</md-button>
+            
+          </div>
+
+
+          <div class="md-padding" flex>
+            <img ng-src="http://iitm.cloudapp.net/media/{{item.fields.pic}}">
+          </div>
+        </div>
+      </md-card>
+    </div>
+
+    
+  </div>
+</div>
+    <!--div class="card">
+      <md-card>Lorem Ipsum Dolor Sit Amet<br>Lorem Ipsum Dolor Sit Amet<br>Lorem Ipsum Dolor Sit Amet<br><div layout="column"><span flex></span></div>Lorem Ipsum Dolor Sit Amet<br></md-card>
+    </div-->
+
+</div>
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script src="print/js/lib/ngStorage.js" ></script>
+  <script src="./scripts.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="putstyle.css">
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+</body>
+</html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->

@@ -1,0 +1,889 @@
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->    <title>Putpeace.com - Printed notes delivered to your hostel.</title>
+    <link rel="icon" href="img/favicon2.png" type="image/png">
+    <meta name='og:image' content='img/symbolPadded.jpg'>
+    <meta name='og:url' content='http://putpeace.com'>
+    <meta name='og:title' content="Your printer at IIT M">
+    <meta name="og:description" content="Print notes in your hostel, signup now to claim your first print absolutely free!">
+  
+     <!-- Bootstrap -->
+     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+     <link href="css/bootstrap.inline-responsive.css" rel="stylesheet">
+     <link href="css/dropdown.css" rel="stylesheet">
+     <link href="css/style.css?rel=7fff1359c1" rel="stylesheet">
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+      <link style="display:block;" href='css/common.css?rel=5a0c3db04d' rel='stylesheet' type='text/css' async="true">
+      <script src="js/cdn/jquery-1.11.3.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+      
+
+ <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js"></script>
+
+      <script src="js/lib/ngStorage.js" ></script>
+      <script src="js/mainApp.js?rel=773f282fcc"></script>
+      <script src="js/common.js?rel=c23289161c"></script>
+      <script src="js/header.js?rel=5f08d2006a"></script>  
+      <script src="js/fileReader.js?rel=cb3f5fdfa6"></script>
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+
+
+  <!-- Heat Maps -->
+  <script type="text/javascript">
+(function() {
+var hm = document.createElement('script'); hm.type ='text/javascript'; hm.async = true;
+hm.src = ('++u-heatmap-it+log-js').replace(/[+]/g,'/').replace(/-/g,'.');
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- Front end errors -->
+<script
+  src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js"
+  data-apikey="fb9bbca02c812f644fa41a33eaca2919">
+</script>
+</head>
+<body ng-app="main"  class="loadingInProgress" id="bodyInViewer" tabindex="0" style="zoom:0.8;">
+<div id="load">
+  <div class="spinner" style="margin-top: 200px auto !important;">
+    <div class="double-bounce1 orangeBack"></div>
+    <div class="double-bounce2 orangeBack"></div>
+  </div>
+</div>
+<div id="contents">
+<div ng-include src="'layout/header.html'"></div> 
+
+
+  <md-toolbar id="netErr"  class="md-warn">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Net is putting pain! Reload</h2>
+    </div>
+  </md-toolbar>
+<div class="down30"></div>
+<div  id="innerLoading" ng-controller="loadingCtrl"> 
+  <div class="spinner"><div class="double-bounce1 orangeBack"></div>
+    <div class="double-bounce2 orangeBack"></div>
+  </div>
+  <div ng-show="docRendering">
+  <h1 class="textCenter">Uploading the PDF...</h1>
+
+
+  </div>
+</div>  
+<div ng-controller="PDFCtrl">
+<div id="container">
+<!--<div id="notice" ng-click="openUrl('pdf/2165')" class="cursorPointer alert alert-danger noticeWell">
+Due to overwhelming response we are activating payments, <a>learn more</a>
+</div> -->
+
+  
+
+
+<div>
+  <div ng-show="state==1">
+<md-content  class="mdContent">
+     <md-card class="printerCard">
+<div style="margin-top: 10px;">
+            <span class="md-headline" style="margin-left: 10px;">Select Printer</span>
+  <span style="float: right;margin-right: 10px;">1/3</span>
+</div>
+
+ <form  class="printerList" ng-cloak>
+      <md-input-container>
+        <label>Select Printer</label>
+        <md-select ng-model="printer">
+          <md-option ng-repeat="drop in dropPoints track by  $index" value="{{drop.pk}}">
+            <img class="dotSize" ng-src="{{printerState(drop.fields.status, drop.fields.condition)}}">{{ drop.fields.name }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+</form>
+<span class="inRed printerErr" ng-show="moPrinter" >Select a printer which is Active</span>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-raised md-primary" ng-click="nextUpload()">Next</md-button>
+          
+        </md-card-actions>
+      </md-card>
+    </md-content>
+  </div>
+  <div ng-show="state==2">
+
+<md-card class="uploadCard">
+
+
+    <span href="#" id="fileDrop">
+    <div id="beforeDrop">
+      <div style="margin-top: 10px;">
+                  <span class="md-headline" style="margin-left: 10px;">Drop your PDF here</span>
+        <span style="float: right;margin-right: 10px;">2/3</span>
+      </div>
+      <img src="img/pdf.svg" width="123px" class="pdfIcon" alt="reuse">
+       <md-card-actions layout="row" layout-align="center center">
+       </md-card-actions>
+       
+      </div>
+
+      <div id="onDrag">
+          <div style="margin-top: 10px;">
+                      <span class="md-headline" style="margin-left: 10px;">Drop your PDF here</span>
+            <span style="float: right;margin-right: 10px;">2/3</span>
+          </div>
+        <br><br>
+      <div class="spinner " style="margin: 0 auto;">
+      <div class="double-bounce1 orangeBack" style="-webkit-animation-play-state: running; animation-play-state: running;"></div>
+      <div class="double-bounce2 orangeBack" style="-webkit-animation-play-state: running; animation-play-state: running;"></div>
+      </div><br><br>
+      </div> <div class="uploadBtn"><md-button class="md-raised md-primary"  ng-click="fileUpload()">Upload</md-button></div><br>
+    </span>
+ 
+  </md-card>
+
+</div>
+
+
+</div>
+</div>
+<!-- row end -->
+
+    <div class=" PDFMain" id="PDFMain">
+      <div class="visible-xs">    
+<md-button class="md-raised md-primary mbFocusBtn"  ng-click="mbviewPDF()"  >{{mbScreenToggle}}</md-button>
+
+    </div>
+
+<div id="viewerSide" class="pp-pdf-lay">
+
+<md-progress-linear md-mode="determinate" id="progress" ng-show="uploadProgress" value="{{progressBar}}"></md-progress-linear>
+<div>
+    <!--#if FIREFOX || MOZCENTRAL-->
+<!--#include viewer-snippet-firefox-extension.html-->
+<!--#endif-->
+<!--#if CHROME-->
+<!--#include viewer-snippet-chrome-extension.html-->
+<!--#endif-->
+
+    <link rel="stylesheet" href="pdfjs/web/viewer.css"/>
+<!--#if !PRODUCTION-->
+    <link rel="resource" type="application/l10n" href="pdfjs/locale/locale.properties"/>
+<!--#endif-->
+
+<!--#if !(MOZCENTRAL || CHROME || MINIFIED)-->
+    <script src="pdfjs/web/compatibility.js"></script>
+<!--#endif-->
+
+<!--#if !PRODUCTION-->
+    <script src="pdfjs/external/webL10n/l10n.js"></script>
+<!--#endif-->
+
+<!--#if !PRODUCTION-->
+    <script src="pdfjs/src/shared/util.js"></script>
+    <script src="pdfjs/src/display/api.js"></script>
+    <script src="pdfjs/src/display/metadata.js"></script>
+    <script src="pdfjs/src/display/canvas.js"></script>
+    <script src="pdfjs/src/display/webgl.js"></script>
+    <script src="pdfjs/src/display/pattern_helper.js"></script>
+    <script src="pdfjs/src/display/font_loader.js"></script>
+    <script src="pdfjs/src/display/annotation_helper.js"></script>
+    <script>PDFJS.workerSrc = 'pdfjs/src/worker_loader.js';</script>
+<!--#endif-->
+
+<!--#if (GENERIC && !MINIFIED) -->
+<!--#include viewer-snippet.html-->
+<!--#endif-->
+
+<!--#if !PRODUCTION-->
+    <script src="pdfjs/ui_utils.js"></script>
+    <script src="pdfjs/default_preferences.js"></script>
+    <script src="pdfjs/preferences.js"></script>
+    <script src="pdfjs/download_manager.js"></script>
+    <script src="pdfjs/view_history.js"></script>
+    <script src="pdfjs/pdf_rendering_queue.js"></script>
+    <script src="pdfjs/pdf_page_view.js"></script>
+    <script src="pdfjs/text_layer_builder.js"></script>
+    <script src="pdfjs/annotations_layer_builder.js"></script>
+    <script src="pdfjs/pdf_viewer.js"></script>
+    <script src="pdfjs/pdf_thumbnail_view.js"></script>
+    <script src="pdfjs/pdf_thumbnail_viewer.js"></script>
+    <script src="pdfjs/pdf_outline_view.js"></script>
+    <script src="pdfjs/pdf_attachment_view.js"></script>
+    <script src="pdfjs/pdf_find_bar.js"></script>
+    <script src="pdfjs/pdf_find_controller.js"></script>
+    <script src="pdfjs/pdf_history.js"></script>
+    <script src="pdfjs/secondary_toolbar.js"></script>
+    <script src="pdfjs/pdf_presentation_mode.js"></script>
+    <script src="pdfjs/grab_to_pan.js"></script>
+    <script src="pdfjs/hand_tool.js"></script>
+    <script src="pdfjs/overlay_manager.js"></script>
+    <script src="pdfjs/password_prompt.js"></script>
+    <script src="pdfjs/pdf_document_properties.js"></script>
+<!--#endif-->
+
+<!--#if !MINIFIED -->
+    <script src="pdfjs/debugger.js"></script>
+    <script src="pdfjs/web/viewer.js"></script>
+
+<script type="text/javascript">
+//Setting page numbers
+/*
+   PDFView.watch('pagesCount', function (id, oldval, newval) {
+    console.log("page number changed from " + oldVal + " to " + newval);
+                  PDFCtrl.lastPage = PDFView.pagesCount;
+                  PDFCtrl.totalPages = PDFView.pagesCount; 
+                  PDFCtrl.setCost();
+                  errorFileCheck(-1);
+              });                   */
+</script>    
+<!--#else-->
+<!--#include viewer-snippet-minified.html-->
+<!--#endif-->
+
+    <div id="outerContainer">
+
+      <div id="sidebarContainer">
+        <div id="toolbarSidebar">
+          <div class="splitToolbarButton toggled">
+            <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2" data-l10n-id="thumbs">
+               <span data-l10n-id="thumbs_label">Thumbnails</span>
+            </button>
+            <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3" data-l10n-id="outline">
+               <span data-l10n-id="outline_label">Document Outline</span>
+            </button>
+            <button id="viewAttachments" class="toolbarButton group" title="Show Attachments" tabindex="4" data-l10n-id="attachments">
+               <span data-l10n-id="attachments_label">Attachments</span>
+            </button>
+          </div>
+        </div>
+        <div id="sidebarContent">
+          <div id="thumbnailView">
+          </div>
+          <div id="outlineView" class="hidden">
+          </div>
+          <div id="attachmentsView" class="hidden">
+          </div>
+        </div>
+      </div>  <!-- sidebarContainer -->
+
+      <div id="mainContainer">
+        <div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
+          <label for="findInput" class="toolbarLabel" data-l10n-id="find_label">Find:</label>
+          <input id="findInput" class="toolbarField" tabindex="91">
+          <div class="splitToolbarButton">
+            <button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="92" data-l10n-id="find_previous">
+              <span data-l10n-id="find_previous_label">Previous</span>
+            </button>
+            <div class="splitToolbarButtonSeparator"></div>
+            <button class="toolbarButton findNext" title="" id="findNext" tabindex="93" data-l10n-id="find_next">
+              <span data-l10n-id="find_next_label">Next</span>
+            </button>
+          </div>
+          <input type="checkbox" id="findHighlightAll" class="toolbarField">
+          <label for="findHighlightAll" class="toolbarLabel" tabindex="94" data-l10n-id="find_highlight">Highlight all</label>
+          <input type="checkbox" id="findMatchCase" class="toolbarField">
+          <label for="findMatchCase" class="toolbarLabel" tabindex="95" data-l10n-id="find_match_case_label">Match case</label>
+          <span id="findMsg" class="toolbarLabel"></span>
+        </div>  <!-- findbar -->
+
+        <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+          <div id="secondaryToolbarButtonContainer">
+            <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="51" data-l10n-id="presentation_mode">
+              <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+            </button>
+
+            <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="52" data-l10n-id="open_file">
+              <span data-l10n-id="open_file_label">Open</span>
+            </button>
+
+            <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="53" data-l10n-id="print">
+              <span data-l10n-id="print_label">Print</span>
+            </button>
+
+            <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="54" data-l10n-id="download">
+              <span data-l10n-id="download_label">Download</span>
+            </button>
+
+            <a href="#" id="secondaryViewBookmark" class="secondaryToolbarButton bookmark visibleSmallView" title="Current view (copy or open in new window)" tabindex="55" data-l10n-id="bookmark">
+              <span data-l10n-id="bookmark_label">Current View</span>
+            </a>
+
+            <div class="horizontalToolbarSeparator visibleLargeView"></div>
+
+            <button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="56" data-l10n-id="first_page">
+              <span data-l10n-id="first_page_label">Go to First Page</span>
+            </button>
+            <button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="57" data-l10n-id="last_page">
+              <span data-l10n-id="last_page_label">Go to Last Page</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="58" data-l10n-id="page_rotate_cw">
+              <span data-l10n-id="page_rotate_cw_label">Rotate Clockwise</span>
+            </button>
+            <button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="59" data-l10n-id="page_rotate_ccw">
+              <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="toggleHandTool" class="secondaryToolbarButton handTool" title="Enable hand tool" tabindex="60" data-l10n-id="hand_tool_enable">
+              <span data-l10n-id="hand_tool_enable_label">Enable hand tool</span>
+            </button>
+
+            <div class="horizontalToolbarSeparator"></div>
+
+            <button id="documentProperties" class="secondaryToolbarButton documentProperties" title="Document Properties…" tabindex="61" data-l10n-id="document_properties">
+              <span data-l10n-id="document_properties_label">Document Properties…</span>
+            </button>
+          </div>
+        </div>  <!-- secondaryToolbar -->
+
+        <div class="toolbar">
+          <div id="toolbarContainer">
+            <div id="toolbarViewer">
+              <div id="toolbarViewerLeft">
+                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
+                  <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
+                </button>
+                <div class="toolbarButtonSpacer"></div>
+                <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="12" data-l10n-id="findbar">
+                   <span data-l10n-id="findbar_label">Find</span>
+                </button>
+                <div class="splitToolbarButton">
+                  <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
+                    <span data-l10n-id="previous_label">Previous</span>
+                  </button>
+                  <div class="splitToolbarButtonSeparator"></div>
+                  <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
+                    <span data-l10n-id="next_label">Next</span>
+                  </button>
+                </div>
+                <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber" data-l10n-id="page_label">Page: </label>
+                <input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="15">
+                <span id="numPages" class="toolbarLabel"></span>
+              </div>
+              <div id="toolbarViewerRight">
+                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
+                  <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                </button>
+
+                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
+                  <span data-l10n-id="open_file_label">Open</span>
+                </button>
+
+                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
+                  <span data-l10n-id="print_label">Print</span>
+                </button>
+
+                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+                  <span data-l10n-id="download_label">Download</span>
+                </button>
+                <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="35" data-l10n-id="bookmark">
+                  <span data-l10n-id="bookmark_label">Current View</span>
+                </a>
+
+                <div class="verticalToolbarSeparator hiddenSmallView"></div>
+
+                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
+                  <span data-l10n-id="tools_label">Tools</span>
+                </button>
+              </div>
+              <div class="outerCenter">
+                <div class="innerCenter" id="toolbarViewerMiddle">
+                  <div class="splitToolbarButton">
+                    <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
+                      <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                    </button>
+                    <div class="splitToolbarButtonSeparator"></div>
+                    <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
+                      <span data-l10n-id="zoom_in_label">Zoom In</span>
+                     </button>
+                  </div>
+                  <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                     <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
+                      <option id="pageAutoOption" title="" value="auto" selected="selected" data-l10n-id="page_scale_auto">Automatic Zoom</option>
+                      <option id="pageActualOption" title="" value="page-actual" data-l10n-id="page_scale_actual">Actual Size</option>
+                      <option id="pageFitOption" title="" value="page-fit" data-l10n-id="page_scale_fit">Fit Page</option>
+                      <option id="pageWidthOption" title="" value="page-width" data-l10n-id="page_scale_width">Full Width</option>
+                      <option id="customScaleOption" title="" value="custom"></option>
+                      <option title="" value="0.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 50 }'>50%</option>
+                      <option title="" value="0.75" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 75 }'>75%</option>
+                      <option title="" value="1" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 100 }'>100%</option>
+                      <option title="" value="1.25" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 125 }'>125%</option>
+                      <option title="" value="1.5" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 150 }'>150%</option>
+                      <option title="" value="2" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 200 }'>200%</option>
+                      <option title="" value="3" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 300 }'>300%</option>
+                      <option title="" value="4" data-l10n-id="page_scale_percent" data-l10n-args='{ "scale": 400 }'>400%</option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div id="loadingBar">
+              <div class="progress">
+                <div class="glimmer">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <menu type="context" id="viewerContextMenu">
+          <menuitem id="contextFirstPage" label="First Page"
+                    data-l10n-id="first_page"></menuitem>
+          <menuitem id="contextLastPage" label="Last Page"
+                    data-l10n-id="last_page"></menuitem>
+          <menuitem id="contextPageRotateCw" label="Rotate Clockwise"
+                    data-l10n-id="page_rotate_cw"></menuitem>
+          <menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise"
+                    data-l10n-id="page_rotate_ccw"></menuitem>
+        </menu>
+
+        <div id="viewerContainer" >
+          <div id="viewer" class="pdfViewer"></div>
+          <div id="loadingText"><h1 style="
+    color: #ddd;
+    text-align: center;
+    margin-top: 89px;
+    /* font-style: inherit; */
+    font-family: Texta-web, Avenir, 'Helvetica Neue', helvetica, sans-serif;
+">Please wait, PDF is Loading...</h1></div>
+        </div>
+
+        <div id="errorWrapper" hidden='true'>
+          <div id="errorMessageLeft">
+            <span id="errorMessage"></span>
+            <button id="errorShowMore" data-l10n-id="error_more_info">
+              More Information
+            </button>
+            <button id="errorShowLess" data-l10n-id="error_less_info" hidden='true'>
+              Less Information
+            </button>
+          </div>
+          <div id="errorMessageRight">
+            <button id="errorClose" data-l10n-id="error_close">
+              Close
+            </button>
+          </div>
+          <div class="clearBoth"></div>
+          <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
+        </div>
+      </div> <!-- mainContainer -->
+
+      <div id="overlayContainer" class="hidden">
+        <div id="passwordOverlay" class="container hidden">
+          <div class="dialog">
+            <div class="row">
+              <p id="passwordText" data-l10n-id="password_label">Enter the password to open this PDF file:</p>
+            </div>
+            <div class="row">
+              <input type="password" id="password" class="toolbarField" />
+            </div>
+            <div class="buttonRow">
+              <button id="passwordCancel" class="overlayButton"><span data-l10n-id="password_cancel">Cancel</span></button>
+              <button id="passwordSubmit" class="overlayButton"><span data-l10n-id="password_ok">OK</span></button>
+            </div>
+          </div>
+        </div>
+        <div id="documentPropertiesOverlay" class="container hidden">
+          <div class="dialog">
+            <div class="row">
+              <span data-l10n-id="document_properties_file_name">File name:</span> <p id="fileNameField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_file_size">File size:</span> <p id="fileSizeField">-</p>
+            </div>
+            <div class="separator"></div>
+            <div class="row">
+              <span data-l10n-id="document_properties_title">Title:</span> <p id="titleField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_author">Author:</span> <p id="authorField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_subject">Subject:</span> <p id="subjectField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_keywords">Keywords:</span> <p id="keywordsField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_creation_date">Creation Date:</span> <p id="creationDateField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_modification_date">Modification Date:</span> <p id="modificationDateField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_creator">Creator:</span> <p id="creatorField">-</p>
+            </div>
+            <div class="separator"></div>
+            <div class="row">
+              <span data-l10n-id="document_properties_producer">PDF Producer:</span> <p id="producerField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_version">PDF Version:</span> <p id="versionField">-</p>
+            </div>
+            <div class="row">
+              <span data-l10n-id="document_properties_page_count">Page Count:</span> <p id="pageCountField">-</p>
+            </div>
+            <div class="buttonRow">
+              <button id="documentPropertiesClose" class="overlayButton"><span data-l10n-id="document_properties_close">Close</span></button>
+            </div>
+          </div>
+        </div>
+      </div>  <!-- overlayContainer -->
+
+    </div> <!-- outerContainer -->
+    <div id="printContainer"></div>
+<!--#if !(FIREFOX || MOZCENTRAL)-->
+<!--#include viewer-snippet-mozPrintCallback-polyfill.html-->
+<!--#endif-->
+</div>
+      </div>
+    <div id="formSide" class="pp-option-lay"><md-card class="option-card">
+    <div ng-show="doCompress">
+      <h3 class="inRed">This file is error prone for printing, Kindly compress using <i><a href="http://smallpdf.com" class="inRed"  target="_blank">smallpdf.com</a></i> and retry!</h3>
+      <hr>
+    </div>
+
+      <div id="page1" ng-show="pageState==1">
+   
+
+       
+<div style="margin-top: 10px;">
+                      <span class="md-headline" style="margin-left: 10px;">Print Options</span>
+            <span style="float: right;margin-right: 10px;">3/3</span>
+          </div>
+      
+               
+    <div ng-show="print">
+     <div class="selectPrinter">
+             <md-input-container>
+        <label>Select Printer</label>
+        <md-select ng-model="printer">
+          <md-option ng-repeat="drop in dropPoints track by  $index" value="{{drop.pk}}">
+            <img class="dotSize" ng-src="{{printerState(drop.fields.status, drop.fields.condition)}}">{{ drop.fields.name }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    <span class=" inRed" ng-show="moPrinter" >Select a printer which is Active</span>
+    </div>    
+
+    <form id="form2">
+    <div>
+  <div layout="row">
+          <md-input-container flex="50" class="md-block"   flex-gt-sm>
+            <label>Start Page</label>
+            <input ng-model="firstPage" type="number" min="1" max="10000" step="1"  ng-change="changePageTo('start')" >
+              <span  ng-message class="inRed" ng-show="moPages">Start page should be less than End page and End page should be less than number of pages</span>
+          </md-input-container>
+          <md-input-container flex="50" class="md-block"   flex-gt-sm>
+            <label>End Page</label>
+            <input ng-model="lastPage" type="number" min="1" max="10000" step="1" ng-change="changePageTo('end')" >
+          </md-input-container>
+  </div>
+    
+      </div>
+
+      <div >
+        <div>
+          <div layout="row">
+                  <md-input-container flex class="md-block" flex-gt-sm>
+                    <label>No of Copies</label>
+                    <input type="number" ng-model="noOfCopies" ng-change="setCosts()" name="noOfCopies" maxlength="5">
+                    <span ng-message class="inRed" ng-show="moNoOfCopies">Number of copies should be a number</span>
+                  </md-input-container>
+          </div>
+            
+        </div>
+      </div>
+
+
+        <div layout="row">
+          <md-checkbox  ng-change="setMore()" ng-model="showMore" ng-true-value="1" ng-false-value="0" >
+            Show more options
+          </md-checkbox>
+
+        </div> 
+
+<!-- More Options start -->
+<div ng-show="showMore=='1'">
+         <div layout="row">
+          <md-checkbox  ng-change="setCosts()" ng-model="backOnBack" ng-true-value="1" ng-false-value="0" >
+            Print on both sides
+          </md-checkbox>
+
+        </div>   
+
+ 
+        <div layout="row">
+          <md-checkbox  ng-change="setCosts()" ng-model="nameLabel" ng-true-value="1" ng-false-value="0" >Add name tag
+          </md-checkbox>
+        </div>
+
+     <div layout="row">
+          <md-checkbox  ng-change="multiPagesPerSide()"  ng-model="multiPages" ng-true-value="1" ng-false-value="0">Multiple pages per side
+          </md-checkbox>
+        </div> 
+               
+
+<div ng-show="multiPages=='1'">
+
+<div class="form-group multiPageForm">
+  
+<div class="multiPage">
+  <md-radio-group ng-model="pagesPerSide" ng-change="setCosts()">
+  <div >
+  
+        <md-radio-button  value="2" name="pagesPerSide">2 Pages per side </md-radio-button>
+  
+  <span class="pageRect duoDisp " style="background-color: white;">
+          <span class="innerPage duoTop">1</span><span class="innerPage duoBottom">2</span></span>
+
+  </div>
+
+  <div>
+    
+     <md-radio-button class="marginTop10" ng-model="pagesPerSide" value="4" name="pagesPerSide">4 Pages per side</md-radio-button>
+  
+  <span class="pageRect quadDisp">
+          <span class="quadInner quad1"></span><span class="quadInner quad2"></span>
+          <span class="quadInner quad3"></span><span class="quadInner"></span>
+  </span>
+  
+  </div>
+   </md-radio-group>
+  </div>
+</div>
+</div>
+</div>      
+
+<!-- More Options end -->              
+        <div class="pp-well wellForm"><span class="wellHeading">Total cost</span><span class="floatRight"><img class="rupeeIcon" src="img/rupee.svg"><span class="cost"> {{cost}}</span></span></div>
+        <span class="help-block inRed" ng-show="moBulkError">Bulk orders are not supported until mid september</span>
+
+    </form>
+    </div>
+    </div>
+    <!-- Print Div End -->
+
+
+<div id="reviewPage" ng-show="pageState==2">
+       
+          <md-card-title-text>
+            <span class="md-headline">Print Review</span>
+          </md-card-title-text><hr>
+<div layout="row">
+  <div class="propAttr" flex="50">Print on both sides of sheet</div>
+  <div flex="50">{{printSides()}}</div>
+</div>
+
+<div layout="row">
+  <div class="propAttr" flex="50">Pages to be printed</div>
+  <div flex="50">{{firstPage}}-{{lastPage}}</div>
+</div>
+
+<div layout="row">
+  <div class="propAttr" flex="50">No of copies</div>
+  <div flex="50">{{noOfCopies}}</div>
+</div>
+
+
+<div layout="row" ng-show="nameLabel=='1'">
+  <div class="propAttr" flex="50" >Label my name on print</div>
+  <div flex="50">Yes</div>
+</div>
+
+
+<div ng-show="pagesPerSide=='2' || pagesPerSide=='4'">
+<div layout="row" >
+  <div class="propAttr" flex="50">Pages per side</div>
+  <div flex="50">
+
+  <div ng-show="pagesPerSide=='2'">
+  <div style="margin-bottom: 6px;" >2 Pages per side </div>
+  <span class="pageRect duoDisp " style="background-color: white;">
+          <span class="innerPage duoTop">1</span><span class="innerPage duoBottom">2</span></span>
+  </div>          
+
+  <div ng-show="pagesPerSide=='4'">
+  <div style="margin-bottom: 6px;">4 Pages per side</div>
+  <span class="pageRect quadDisp">
+          <span class="quadInner quad1"></span><span class="quadInner quad2"></span>
+          <span class="quadInner quad3"></span><span class="quadInner"></span></span>
+  </div>          
+
+  </div>
+</div>
+</div>
+
+<div class="collectDetails">
+<div layout="row">
+  <div class="color70" flex="50">Printer location</div>
+  <div flex="50">{{dropPointName()}}</div>
+</div>
+
+
+<div layout="row">
+  <div class="color70" flex="50">Estimated time to print</div>
+  <div flex="50">{{timerString}}</div>
+</div>
+</div>
+
+
+
+
+   <div class="pp-well wellForm"><span class="wellHeading">Total cost</span><span class="floatRight"><img class="rupeeIcon" src="img/rupee.svg"><span class="cost"> {{cost}}</span></span></div>
+    <h3>Available balance in wallet : {{walletBalance}} INR</h3>
+
+  </div>
+<!-- Review Page end -->
+
+
+<!-- Wallet Page -->
+
+<div id="walletPage" ng-show="pageState==3">
+<h2>Recharge Wallet</h2><hr>
+<h3>Available balance in wallet : Rs.<span class="balAfter">{{walletBalance}}</span></h3>
+  <section class="contSection">
+    <div class="" style="background:#fff; padding:20px 40px 40px 40px;">
+            <div class="do-payment-header ng-binding"></div>
+              <form id="wallet" method="post" id="payu_form" class="ng-pristine ng-valid">
+                <div class="" style="margin-bottom:10px;">
+                  <div class="">
+                      <md-input-container>
+                        <label>Amount in Rupees</label>
+                        <input  ng-model="amount" id="amountVal" ng-change="checkAmount()">
+                      </md-input-container>
+                  
+                      <span class="help-block inRed" ng-show="paymentErr">Minimum of Rs.{{cost-walletBalance}} needs to be paid</span>
+                      <span class="help-block" ng-show="payReq">Please enter an amount to pay</span>
+                  </div>
+                </div>
+
+
+                 <div layout="row">
+                  <div flex="33">
+                    <md-button class="md-raised" ng-click="setAmount(50)">Rs. 50</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(100)">Rs. 100</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(200)">Rs. 200</md-button>
+                  </div>
+                </div>
+           <md-button style="margin-top:20px;" class="md-primary md-raised pull-right" ng-click="paymentCheck()" >Pay Now</md-button>
+              </form>
+          </div>
+          
+</section>
+</div>
+
+<!-- Wallet Page end -->
+<div ng-show="pageState==4">
+<div align="center">
+<md-progress-linear md-mode="determinate" id="progress" ng-show="uploadProgress" value="{{progressBar}}"></md-progress-linear>
+
+
+<div class="spinner spinnerIMP" ng-hide="uploadProgress">
+  <div class="double-bounce1" ng-class="orderStatus  ==  'REGISTERED' ||orderStatus  ==   'QUEUED' ||orderStatus  ==   'IDLE' ? 'yellowBack':(orderStatus  == 'IN_PROGRESS' || orderStatus  ==  'DONE' ? 'greenBack' :(orderStatus  == 'ERROR'?'redBack': 'yellowBack' ))"></div> 
+    
+  <div class="double-bounce2" ng-class="orderStatus  ==  'REGISTERED' ||orderStatus  ==   'QUEUED' ||orderStatus  ==   'IDLE' ? 'yellowBack':(orderStatus  == 'IN_PROGRESS' || orderStatus  ==  'DONE' ? 'greenBack' :(orderStatus  == 'ERROR'?'redBack': 'yellowBack' ))"></div> 
+</div>
+
+<h2>{{progressState}}</h2>
+<div ng-show="timer">
+  <hr>
+  <h2 ng-hide="timerDone">{{timerString}}</h2>
+  <h2 ng-show="timerDone">Almost Finishing...</h2>
+</div>
+
+<h2 ng-show="compressError && !timeOutError">Something went wrong with this pdf, try <b>compressing</b> it on <a href="http://smallpdf.com" target="_blank">smallpdf.com</a> and retry!</h2>
+<h2 ng-show="timeOutError">Printer is busy, Please try again in a while. </h2>
+<div ng-show="orderStatus=='DONE'" >
+  <hr>
+  <div  class="fb-like marginLeft30per" data-href="http://putpeace.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+</div>
+<div ng-hide="orderStatus=='DONE'||orderStatus=='ERROR'" >
+<h4 class="textCenter">Please do not refresh or close this page while printing is going on.</h4>
+</div>
+</div>
+
+</div>
+<!-- Print nav -->
+
+    <div ng-show="buttonsNav">
+        <div layout="row">
+          <div flex="50">
+            <md-button class="md-raised stdBtn" ng-click="prevPage()" ng-show="review"><span ng-show="pageState==2" id="editIcon" class="glyphicon glyphicon-pencil iconBtn"></span>{{navLeft}} </md-button>
+          </div>
+          <div flex="50">
+   
+<md-button class="md-raised md-primary  floatRight stdBtn" id="rgtBtn" ng-hide="pageState==3" ng-click="nextPage()"  ><span ng-show="pageState==1" id="printIcon" class="glyphicon glyphicon-print iconBtn"></span>{{navRight}}   </md-button>
+
+<button type="button" id="rgtLoading" ng-hide="pageState==3" class="btn floatRight deepOrangeBtn ng-binding stdBtn"><div  id="printSpinner" class="spinner btnSpinner">
+                <div class="double-bounce1 whiteBack btnBounce"></div>
+                <div class="double-bounce2 whiteBack btnBounce"></div>
+              </div></button>
+          </div>
+        </div>
+    </div>
+
+<hr class="darkhr">
+<div class="fontSize20 textCenter" >For any help, mail at <a href="mailto:team@putpeace.com?Subject=PutPeace%20Help" target="_blank"> team@putpeace.com</a></div>
+
+    <br><br>
+
+<!-- Print nav -->
+</md-card>
+    </div>
+    
+  </div>
+</div>
+<div ng-view></div>
+ <div ng-include  src="'layout/footer.html'"></div>  
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="js/events.js?rel=5e5da63b61"></script>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66413863-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    </body>
+
+</html>

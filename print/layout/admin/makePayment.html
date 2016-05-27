@@ -1,0 +1,63 @@
+<div ng-include id="InHeader" src="'layout/header.html'" style="zoom:.85"></div>
+<link rel="stylesheet" href="http://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css">
+  <!-- Page related Script -->
+    <script src="js/lib/ng-table.js"></script>
+  <!-- /Page related Script -->
+<div class="container row" ng-controller="PaymentCtrl">
+<div ng-include src="'layout/settingSidebar.html'"></div>
+
+  <div class="col-md-8">
+<section class="contSection page-header">
+  <h2 class="pageHeading">Payment History</h2>
+</section>
+<section class="contSection">
+  <md-card>
+  <div class="subHeadingCont">
+                <div>
+                    
+                    <div class="col-md-8">
+                        <div class="subHeadingTxt " style="margin-top: 15px;right: 9px;">
+                            
+                                <span style="margin-left:8px;">Balance: Rs.</span>
+                                <i class="fa fa-inr balance-space"></i> {{walletBalance}}
+                            
+                        </div>
+
+                    </div>
+                    <div  style="margin-top: 6px;">
+                      
+                        <md-button class="md-primary md-raised floatRight" href="#/doPayment">Recharge now</md-button>
+                    </div>
+                </div>
+            </div>
+</md-card>
+</section>
+<br><br>
+<section class="contSection">
+       <md-card>
+       <md-table-container>
+          <table md-table >
+            <thead md-head>
+              <tr md-row>
+                <th md-column ><span>Sr.No</span></th>
+                <th md-column><span>Date</span></th>
+                <th md-column><span>Amount</span></th>
+                <th md-column><span>Balance</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="history in paymentHistory">
+                <td md-cell>{{$index + 1}}</td>
+                <td md-cell>{{dateFormat(history.fields.payment_date)}}</td>
+                <td md-cell>{{history.fields.amount}}</td>
+                <td md-cell>{{history.fields.balance_after}}</td>
+              </tr>
+      
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-card>
+
+
+</section>
+</div>

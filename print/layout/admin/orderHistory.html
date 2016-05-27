@@ -1,0 +1,45 @@
+<div ng-include id="InHeader" src="'layout/header.html'" style="zoom:.85"></div>
+ <link rel="stylesheet" href="http://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css">
+ 
+<div ng-app="main" ng-controller="orderHistory">
+<div class="container row">
+<div ng-include src="'layout/settingSidebar.html'"></div>
+  <div class="col-md-8">
+  <section class="contSection page-header">
+<h2 class="pageHeading">Past Orders</h2>
+</section>
+<section class="contSection">
+      <md-card>
+       <md-table-container>
+          <table md-table >
+            <thead md-head>
+              <tr md-row>
+                <th md-column><span>Sr. no</span></th>
+                <th md-column><span>Order Id</span></th>
+                <th md-column><span>Date</span></th>
+                <th md-column><span>View</span></th>
+                <th md-column><span>Amount</span></th>
+                <th md-column><span>Balance</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row ng-repeat="history in orderHistory" >
+                <td md-cell>{{$index + 1}}</td>
+                <td md-cell>{{history.pk}}</td>
+                <td md-cell>{{dateFormat(history.fields.order_date)}}</td>
+                <td md-cell><a href="mainApp.html#/pdf/{{history.fields.pdf}}"><img style="width:25px" src="img/link.svg">
+        </a></td>
+                <td md-cell>{{history.fields.cost}}</td>
+                <td md-cell>{{history.fields.balance_after}}</td>
+
+              </tr>
+           
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-card>
+
+</section>
+</div>    
+</div>
+</div>

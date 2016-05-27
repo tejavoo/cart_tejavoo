@@ -1,0 +1,118 @@
+<div class="container">
+      <div class="row">
+        <div class="pp-logo">
+        <div class="down30"></div>
+        <img src="img/logo.png" alt="Smiley face" height="auto" style="margin-left:10%" width="80%">
+        
+        <div class="down30"></div>
+        <div style="text-align:center">
+          <div class="hidemobil row">
+            <div class="pp-col-6">
+              <img src="img/food.svg" alt="upload" style="height: 156px;">
+              <p class="mainpage">Get yum food at Himalaya 2nd Floor from 8pm to 1am. New dishes every week</p>
+            </div>
+            <div class="pp-col-6">
+              <img src="img/printer.svg" style="margin-bottom: 31px;height:121px;margin-top: 6px;" alt="reuse">
+              <p class="mainpage">Get your prints in your own hostel. Works 24*7!</p>
+            </div>
+ 
+          </div>
+        </div>
+        </div>
+        <div class="down150"></div>
+        <div class="mobalign pp-login" style="border: 1px solid; border-color: rgba(245,245,245,1);zoom:1.15;">
+ <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="login">
+        <md-content class="md-padding">
+
+          <section ng-controller="loginCtrl">
+          <div ng-show="invalidCredentials"  class="alert alert-danger fade in inRed">
+           
+            {{inValidMessage}}</a>
+          </div>
+          <div ng-show="networkError"  class="alert alert-danger fade in inRed">
+            
+            Please check your Internet connection.</a>
+          </div>
+    <form id="loginForm"  name="loginForm" noValidate>
+      <div  ng-class="{ 'has-error' : loginForm.email.$invalid && loginSubmit }">
+            <md-input-container>
+              <label>Email</label>
+              <input ng-model="email" ng-keypress="loginOnEnter($event)"  name="email" required>
+          <p ng-show="loginForm.email.$invalid && loginSubmit" class="help-block inRed">Enter a valid email</p>
+            </md-input-container>
+
+
+      </div>
+      <div  ng-class="{ 'has-error' : loginForm.password.$invalid &&  loginSubmit }">
+            <md-input-container>
+                  <label>Password</label>
+                  <input ng-model="password"  type="password" ng-keypress="loginOnEnter($event)" name="password" ng-minlength="3" required>
+                  <p ng-show="loginForm.password.$invalid &&  loginSubmit" class="help-block inRed">Password is too short.</p>
+                </md-input-container>
+    
+      </div>
+   
+         <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>       
+          <a class="forgotPass" href="#forgotPassword">Forgot Password?</a>
+        </form>
+ </section>
+        </md-content>
+      </md-tab>
+      <md-tab label="signup">
+        <md-content class="md-padding">
+ 
+ <section ng-controller="registerCtrl">
+
+      <div ng-show="emailExists"  class="alert alert-danger fade in inRed">
+        
+        {{registerMsg}}
+      </div>
+      <div ng-show="networkError"  class="alert alert-danger fade in inRed">
+       
+        Please check your Internet connection.</a>
+      </div>
+        <form id="registerForm"   name="registerForm"  novalidate>
+
+          <div ng-class="{ 'has-error' : registerForm.name.$invalid && registerSubmit }">
+           
+            <md-input-container>
+                  <label>Name</label>
+                  <input ng-model="fullName"  ng-keypress="registerOnEnter($event)" name="name" required>
+                  <p ng-show="registerForm.name.$invalid && registerSubmit " class="help-block inRed">Your Full name is required</p>
+                </md-input-container>
+            
+          </div>
+
+          <div ng-class="{ 'has-error' : registerForm.email.$invalid && registerSubmit }">
+            <md-input-container>
+                  <label>Email</label>
+                  <input ng-model="email"  ng-keypress="registerOnEnter($event)" name="email" required>
+                  <p ng-show="registerForm.email.$invalid && registerSubmit " class="help-block inRed">Enter a valid email</p>
+                </md-input-container>
+              
+          </div>
+    
+          <div ng-class="{ 'has-error' : registerForm.password.$invalid && registerSubmit }">
+            <md-input-container>
+                  <label>Password</label>
+                  <input ng-model="password" type="password" ng-keypress="registerOnEnter($event)" name="password" ng-minlength="3" required>
+                  <p ng-show="registerForm.password.$invalid && registerSubmit" class="help-block inRed">Password is too short.</p>
+                </md-input-container>
+              
+          </div>
+
+          <md-button class="md-primary md-raised" ng-click="register()">Signup</md-button>
+
+        </form>
+      </section>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+        <br>
+        </div>
+
+      </div>
+    </div>

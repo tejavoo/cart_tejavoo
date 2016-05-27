@@ -1,0 +1,27 @@
+ <div ng-controller="HeaderCtrl">
+ <md-toolbar style="zoom:1.2;" >
+      <div class="md-toolbar-tools">
+     
+        <h2>
+          <span><a href="..">PutGrub</a>  </span>|<span style="font-weight:bold">  <a href="mainApp.html?rel=aacf59ec0f#/hom">PutPrint</a></span>
+        </h2>
+        <span flex></span>
+        <md-button ng-click="toggleRight()"
+            ng-hide="isOpenRight()" class="md-icon-button" aria-label="More">
+          <md-icon  md-svg-icon="img/icons/more_vert.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+
+
+   <md-sidenav class="md-sidenav-right md-whiteframe-z2" style="zoom:1.2;" md-component-id="right">
+      <md-content ng-controller="RightCtrl" layout-padding>
+<md-button class="md-primary sideNavList" ng-href="mainApp.html?rel=aacf59ec0f#/home">Home</md-button>
+<md-button class="md-primary sideNavList" ng-href="admin.html#/profile">Profile</md-button>
+<md-button class="md-primary sideNavList" ng-href="admin.html#/makePayment">Wallet</md-button>
+<md-button class="md-primary sideNavList" ng-href="admin.html#/orderHistory">Order History</md-button>
+<md-button class="md-primary sideNavList width95p" ng-click="logout()">Logout</md-button>
+
+        </md-content></md-sidenav>
+    </div>

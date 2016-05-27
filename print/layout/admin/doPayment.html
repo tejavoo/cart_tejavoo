@@ -1,0 +1,44 @@
+<div ng-include id="InHeader" src="'layout/header.html'" style="zoom:.85"></div>
+<div class="container row" ng-controller="doPaymentCtrl">
+  <div ng-include src="'layout/settingSidebar.html'"></div>
+  <div class="col-md-8">
+     <md-card>
+  <section class="contSection page-header">
+<h2 class="pageHeading margl24">Recharge Wallet</h2>
+</section>
+<h3 class="margl24">Available balance in wallet : Rs.<span class="balAfter">{{walletBalance}}</span></h3>
+<br><br>
+<section class="contSection">
+ 
+    <div class="col-md-6 col-md-offset-3 col-xs-12" style="background:#fff; padding:20px 40px 40px 40px;">
+            <div class="do-payment-header ng-binding"></div>
+              <form action="https://secure.payu.in/_payment" method="post" id="payu_form" class="ng-pristine ng-valid">
+                <div class="row">
+                  <div class="col-md-12">
+                      
+                            <md-input-container>
+                              <label>Amount</label>
+                              <input ng-model="amount" ng-change="checkAmount()" type="text">
+                            </md-input-container>
+
+                            
+                  </div>
+                </div>
+                 <div layout="row">
+                  <div flex="33">
+                    <md-button class="md-raised" ng-click="setAmount(50)">Rs. 50</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(100)">Rs. 100</md-button>
+                  </div>
+                  <div flex="33">
+                     <md-button class="md-raised"  ng-click="setAmount(200)">Rs. 200</md-button>
+                  </div>
+                </div>
+         
+          <md-button style="margin-top:20px;" class="md-primary md-raised" ng-click="paymentCheck()" >Pay Now</md-button>
+              </form>
+          </div>
+</section>
+</md-card>
+</div>    

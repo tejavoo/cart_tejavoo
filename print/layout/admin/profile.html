@@ -1,0 +1,109 @@
+<div ng-include id="InHeader" src="'layout/header.html'" style="zoom:.85"></div>
+<div class="container row" ng-controller="ProfileCtrl">
+    <div ng-include src="'layout/settingSidebar.html'"></div>
+  <div class="col-md-8">
+  <section class="contSection page-header">
+<h2 class="pageHeading">Profile</h2>
+</section>
+<section class="contSection">
+<h4 class="inRed" ng-show="phoneNumber==''||address==''">Help us get in touch with you incase of an error.</h4>
+<div class="row" ng-show="readMode">
+    <md-card>
+    <br>
+                <div>
+                    <form class="form-horizontal ng-pristine ng-valid" role="form">
+                        
+
+                         <div layout="row">
+                          <div class="propAttr profAlign" flex="50">Name:</div>
+                          <div flex="50">{{name}}</div>
+                        </div>      
+
+                         <div layout="row">
+                          <div class="propAttr profAlign" flex="50">Phone:</div>
+                          <div flex="50">{{phoneNumber}}</div>
+                        </div>   
+
+
+                         <div layout="row">
+                          <div class="propAttr profAlign" flex="50">Email:</div>
+                          <div flex="50">{{email}}</div>
+                        </div>   
+
+
+
+                         <div layout="row">
+                          <div class="propAttr profAlign" flex="50">Address:</div>
+                          <div flex="50">{{address}}</div>
+                        </div>   
+
+
+                        <div style="margin-top:30px;text-align:center;">
+                            <div >
+                                <md-button class="md-primary md-raised" ng-click="readMode=false">Edit Profile</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-card>
+            </div>
+<div class="row" ng-show="!readMode">
+<md-card>
+<br>
+        <div class="col-md-offset-2 col-md-8 col-xs-12">
+          
+          <form class="form-horizontal ng-pristine ng-valid" role="form">
+          <div ng-class="{'has-error': invalidEmail}">
+              <div > 
+                                <md-input-container>
+                                    <label>Name</label>
+                                    <input ng-model="name">
+                                  </md-input-container>
+                                <span class="error left-error ng-hide" ng-show="invalidName">Invalid name</span>
+                            </div>
+                            </div>
+            <div  ng-class="{'has-error': invalidEmail}">
+              <div >
+                                <md-input-container>
+                                    <label>Email</label>
+                                    <input ng-model="email" readonly="">
+                                  </md-input-container>
+
+                                <span class="error left-error ng-hide" ng-show="invalidEmail">Invalid Email</span>
+                            </div>
+            </div>
+            <div  ng-class="{'has-error': invalidPhone}">
+              <div>
+
+                                <md-input-container>
+                                    <label>Phone Number</label>
+                                    <input ng-model="phoneNumber">
+                                  </md-input-container>
+
+                                <span class="error left-error ng-hide" ng-show="invalidPhone">Invalid Phone Number</span>
+                            </div>
+            </div>
+
+            <div ng-class="{'has-error': invalidAddress}">
+              <div>
+
+                                <md-input-container>
+                                    <label>Address</label>
+                                    <textarea ng-model="address"></textarea>
+                                  </md-input-container>
+
+                                <span class="error left-error ng-hide" ng-show="invalidAddress">Invalid Address</span>
+                            </div>
+            </div>
+          
+          </form>
+ 
+          <md-button ng-click="updateEditUser()" class="md-raised md-primary saveText" id="saveText">Save</md-button>
+          <span class="f_r">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <md-button class="md-raised" ng-click="readMode=true">Cancel</md-button>   
+        </div>
+        <br>
+    </md-card>
+      </div>
+</section>
+</div>    
